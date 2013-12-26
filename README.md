@@ -5,6 +5,10 @@ Video/Adult 18+ Plex-Plugin - Browse, search and watch videos from xHamster.com
 
 ==============================================================================================
 
+tested on server:slackware-13.1/unraid-plex 0.9.8.10  clients: roku2, firefox 25.0 plex client 
+
+===========================================================================================
+
 ok, so this is attempt to get xHamster running with plex channels
 
 i forked flownex xHamster bundle and uploaded __init__.py to get channel working.
