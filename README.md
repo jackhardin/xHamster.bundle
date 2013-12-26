@@ -9,7 +9,7 @@ ok, so this is attempt to get xHamster running with plex channels
 
 i forked flownex xHamster bundle and uploaded __init__.py to get channel working.
 
-the ServiceCode.pys file in this directory must be copied on the plex server into the
+the ServiceCode.pys file in Contents/Code directory must be copied on the plex server into the
 directory:
 
 YourPlexBase/Library/Application Support/Plex Media Server/Plug-ins/Services.bundle/Contents/Service
