@@ -22,5 +22,15 @@
 	<string>2</string>
 	<key>PlexPluginMode</key>
 	<string>AlwaysOn</string>
+        <key>PlexURLServices</key>
+        <dict>
+	    <key>xHamster_playmp4</key>
+	    <dict>
+		<key>Identifier</key>
+		<string>xhamster_playmp4</string>
+		<key>URLPattern</key>
+		<string>^http://(www\.)?xhamster\.com/movies/\d+/.+\.html</string>
+	    </dict>
+       </dict>
 </dict>
 </plist>
