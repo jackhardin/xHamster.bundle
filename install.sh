@@ -28,9 +28,18 @@ cd "${myplexserverbase}/Library/Application Support/Plex Media Server/Plug-ins/"
 wget -O xHamster.bundle-master.zip --no-check-certificate \
 https://github.com/johnny8ch/xHamster.bundle/archive/master.zip
 unzip  xHamster.bundle-master.zip
+ext=""
+cnt=0
 if [ -d xHamster.bundle ]
 then
-mv  xHamster.bundle xHamster.bundle.zz.bak
+cnt=`expr $cnt + 1`
+ext=".bak.${cnt}"
+while [ -d xHamster.bundle${ext} ]
+do
+cnt=`expr $cnt + 1`
+ext=".bak.${cnt}"
+done
+mv  -f xHamster.bundle xHamster.bundle${ext}
 fi
-mv xHamster.bundle-master xHamster.bundle
+mv -f xHamster.bundle-master xHamster.bundle
 rm xHamster.bundle-master.zip
