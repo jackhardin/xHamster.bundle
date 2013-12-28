@@ -27,6 +27,9 @@ YourPlexServerBase/Library/Application Support/Plex Media Server/Plug-ins/
 unzip -d YourPlexServerBase/Library/Application Support/Plex Media Server/Plug-ins/ 
 
 this will create xHamster.bundle-master directory in above noted directory.
+
+backup xHamster.bundle directory if you want a backup
+
 rename xHamster.bundle-master directory to xHamster.bundle
 
 restart your plex server
