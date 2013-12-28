@@ -33,31 +33,9 @@ restart your plex server
 
 ====================================================================================
 Install script for linux:
+Save install.sh to your computer and run:
 
-
-
-#!/bin/sh
-if [ -z "${myplexserverbase}" ]
-then
-echo export myplexserverbase=some_directory_where_plex_is_installed
-exit
-fi
-if [ ! -d "${myplexserverbase}/Library/Application Support/Plex Media Server/Plug-ins/" ]
-then
-echo yourplexserver base is not a directory
-exit
-fi
-cd "${myplexserverbase}/Library/Application Support/Plex Media Server/Plug-ins/"
-wget -O xHamster.bundle-master.zip --no-check-certificate \
-https://github.com/johnny8ch/xHamster.bundle/archive/master.zip
-unzip  xHamster.bundle-master.zip
-if [ -d xHamster.bundle ]
-then
-mv  xHamster.bundle xHamster.bundle.zz.bak
-fi
-mv xHamster.bundle-master xHamster.bundle
-rm xHamster.bundle-master.zip
-
+./install.sh "/absolute path/to plex/install dir"
 
 ================================================================================================
 
