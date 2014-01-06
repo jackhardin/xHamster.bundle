@@ -1,17 +1,13 @@
-import types, urlparse, re, random
+import types, urlparse, re
 
 NAME = 'xHamster'
 XH_BASE = 'http://xhamster.com'
 XH_CHANNELS = 'http://xhamster.com/'
 XH_CHANNEL = 'http://xhamster.com/channels/%s-%s-%s.html'
 
-randomArt = random.randint(1,3)
-ART = 'artwork-'+str(randomArt)+'.jpg'
-
+ART = 'art-default.jpg'
 ICON = 'icon-default.png'
 ICON_PREFS  = 'icon-prefs.png'
-NXT = 'dudehamsterwheel.jpg'
-PRV = 'hamsterback.jpg'
 XH_MYDEBUG = 0
 
 def xhloginfo( infostr):
@@ -22,7 +18,6 @@ def xhloginfo( infostr):
 def Start():
 
 	#ObjectContainer.title1 = NAME
-	ObjectContainer.art = R(ART)
 	HTTP.CacheTime = CACHE_1HOUR
 	HTTP.Headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:23.0) Gecko/20100101 Firefox/23.0'
 	
@@ -31,7 +26,7 @@ def Start():
 @handler('/video/xhamster', NAME)
 def MainMenu():
 
-	oc = ObjectContainer(title1=NAME, no_cache=True, art=R(ART) )
+	oc = ObjectContainer(title1=NAME, no_cache=True)
 
         pageContent = HTML.ElementFromURL(XH_CHANNELS)
         q = pageContent.xpath( "//a/@href[re:test( ., '^\/channels.*\.html', 'i' )]",
@@ -73,7 +68,7 @@ def MainMenu():
 def ClipsPage(title, chanurl, page=0):
 
         xhloginfo( 'jhzzClipsPage')
-	oc = ObjectContainer(title1 = title, title2=title+'/Pg:'+str(page), replace_parent=True, no_cache=True, art=R(ART))
+	oc = ObjectContainer(title1 = title, title2=title+'/Pg:'+str(page), replace_parent=True)
 	oc.title1 = title
 	xhloginfo( 'chanurl: ' + chanurl)
         if ( chanurl == '/new' ) :
@@ -99,15 +94,14 @@ def ClipsPage(title, chanurl, page=0):
 		#videoItemSummary += '\r\nRating: ' + str(videoItemRating)
 	        xhloginfo('videoItemTitle: '+videoItemTitle+' | videoItemLink: '+videoItemLink+' | videoItemThumb: '+videoItemThumb+' | videoItemSummary: '+videoItemSummary)
                 #thumb = Resource.ContentsOfURLWithFallback( videoItemThumb)
-	        #timg = Resource.ContentsOfURLWithFallback(url=videoItemThumb)
 	        oc.add(EpisodeObject(
 	                url = videoItemLink,
 	                show=NAME,
+	                summary='summ',
 	                season=int(page),
 	                index=int(itemcnt),
 			title = videoItemTitle,
-			thumb = Resource.ContentsOfURLWithFallback(url=videoItemThumb),
-			art = Resource.ContentsOfURLWithFallback(url=videoItemThumb)
+			thumb = Resource.ContentsOfURLWithFallback(url=videoItemThumb)
 		))
 		
 	if itemcnt > 0:
@@ -118,7 +112,7 @@ def ClipsPage(title, chanurl, page=0):
 	                #season=int(page),
 			key = Callback(ClipsPage, title=title, chanurl=chanurl, page=nxtpage),
 			title = title + '/Pg:' + str(nxtpage),
-			thumb = R(NXT)
+			thumb = Resource.ContentsOfURLWithFallback(url=videoItemThumb)
 		))
 	
 

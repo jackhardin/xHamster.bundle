@@ -45,7 +45,7 @@ def MetadataObjectForURL(url):
 		summary = summary,
 		thumb = Resource.ContentsOfURLWithFallback(thumb),
 		genres = ['XXX','Adult','18+'],
-		content_rating = 'X'
+		content_rating = 'G'
 	)
 
 ####################################################################################################
