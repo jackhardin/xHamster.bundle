@@ -1,7 +1,6 @@
-import types, urlparse, re, random, datetime
+import types, re, random, datetime
 import urllib2
 from lxml.html import soupparser
-import operator
 
 NAME = 'xHamster'## setup html element for clips page
 XH_BASE = 'http://xhamster.com'
