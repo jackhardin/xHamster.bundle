@@ -363,7 +363,7 @@ def ClipsPage( title, chanurl, page, subpgstr, pgsts, pgends):
             break
         ht = videoItem.xpath( 'a/@href')
         xhloginfo( 'linkage:'+ht[0])
-        vtit = videoItem.xpath( 'a/u/@title' )
+        vtit = videoItem.xpath( 'a/img/@alt' )
         videoItemTitle = vtit[0]
         videoItemLink  = videoItem.xpath('a')[0].get('href')
         videoItemThumb = videoItem.xpath('a/img')[0].get('src')         
