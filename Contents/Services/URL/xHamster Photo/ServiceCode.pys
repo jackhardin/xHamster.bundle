@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+def NormalizeURL(url):
+  return url
+
+################################################################################
+def MetadataObjectForURL(url):
+
+  data = HTML.ElementFromURL( url )
+
+  title = data.xpath('//table[@id="content"]//h2/text()')[0].strip()
+
+  # get first thumb as album thumbnail
+  thumb = data.xpath('//table[@class="iListing"]//div[contains(@class, "iItem")]/a//img/@src')[0]
+
+  return PhotoAlbumObject(
+    key = Callback(GetPhotos, url = url),
+    title = unicode(title),
+    thumb = Resource.ContentsOfURLWithFallback( url = thumb ),
+    art = Resource.ContentsOfURLWithFallback( url = thumb )
+  )
+
+################################################################################
+def MediaObjectsForURL(url):
+
+  return [
+    MediaObject(
+      parts = Callback(GetPhotos, url = url)
+    )
+  ]
+
+################################################################################
+def GetPhotos(url):
+
+  oc = ObjectContainer()
+
+  data = HTML.ElementFromURL( url )
+
+  title = data.xpath('//table[@id="content"]//h2/text()')[0].strip()
+  photos = data.xpath('//table[@class="iListing"]//div[contains(@class, "iItem")]')
+
+  for index, photo in enumerate(photos):
+    thumb = photo.xpath('./a//img/@src')[0]
+    url = thumb.replace('160.jpg', '1000.jpg')
+    oc.add(PhotoObject(
+      key = url,
+      title = title + " | " + str(index+1),
+      thumb = Resource.ContentsOfURLWithFallback( url = thumb ),
+      art = Resource.ContentsOfURLWithFallback( url = thumb ),
+    ))
+
+  return oc

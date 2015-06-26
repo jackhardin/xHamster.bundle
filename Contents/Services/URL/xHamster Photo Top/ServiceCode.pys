@@ -1,0 +1,48 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+def NormalizeURL(url):
+  return url
+
+################################################################################
+def MetadataObjectForURL(url):
+
+  data = HTML.ElementFromURL( url )
+
+  title = data.xpath('//table[@id="content"]//h2/text()')[0].strip()
+
+  return PhotoAlbumObject(
+    key = Callback(GetPhotos, url = url),
+    title = unicode(title)
+  )
+
+################################################################################
+def MediaObjectsForURL(url):
+
+  return [
+    MediaObject(
+      parts = Callback(GetPhotos, url = url)
+    )
+  ]
+
+################################################################################
+def GetPhotos(url):
+
+  oc = ObjectContainer()
+
+  data = HTML.ElementFromURL( url )
+
+  photos = data.xpath('//table[@id="gTop"]//table[@class="info"]')
+
+  for photo in photos:
+    thumb = photo.xpath('.//a//img/@src')[0]
+    url = thumb.replace('160.jpg', '1000.jpg')
+    title = photo.xpath('.//div[@class="gTop"]/a/text()')[0]
+    oc.add(PhotoObject(
+      key = url,
+      title = unicode(title),
+      thumb = Resource.ContentsOfURLWithFallback( url = thumb ),
+      art = Resource.ContentsOfURLWithFallback( url = thumb ),
+    ))
+
+  return oc

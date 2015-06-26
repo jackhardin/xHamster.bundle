@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>URL</key>
+	<dict>
+		<key>xHamster Video</key>
+		<dict>
+			<key>Identifier</key>
+			<string>com.plex.plugins.video.xhamster</string>
+			<key>URLPatterns</key>
+			<array>
+				<string>^http://(..\.)?xhamster\.com/movies/[0-9]+/.+</string>
+				<string>^http://(..\.)?xhamster\.com/random\.php$</string>
+			</array>
+		</dict>
+		<key>xHamster Photo</key>
+		<dict>
+			<key>Identifier</key>
+			<string>com.plex.plugins.photo.xhamster</string>
+			<key>URLPatterns</key>
+			<array>
+				<string>^http://(..\.)?xhamster\.com/photos/gallery/[0-9]+/.+</string>
+				<string>^http://(..\.)?xhamster\.com/random\.php\?type=gallery</string>
+			</array>
+		</dict>
+		<key>xHamster Photo Top</key>
+		<dict>
+			<key>Identifier</key>
+			<string>com.plex.plugins.photo.top.xhamster</string>
+			<key>URLPatterns</key>
+			<array>
+				<string>^http://(..\.)?xhamster\.com/photos/rankings/.+-rated\.html</string>
+			</array>
+		</dict>
+	</dict>
+</dict>
+</plist>
