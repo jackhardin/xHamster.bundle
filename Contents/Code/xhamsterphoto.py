@@ -53,9 +53,15 @@ def xhamster_photos():
 def xhamster_photos_album_categories():
   if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_photos_album_categories")
 
-  oc = ObjectContainer( title2 = L("Photo Albums Categories") )
+  oc = ObjectContainer(
+    title2 = L("Photo Albums Categories"),
+    no_cache = True
+  )
 
-  data = HTML.ElementFromURL( XHAMSTER_PHOTOS_CATEGORIES )
+  data = HTML.ElementFromURL(
+    XHAMSTER_PHOTOS_CATEGORIES,
+    cacheTime = 0
+  )
 
   categories = data.xpath('//div[@id="menuLeft"]/div[@class="list"][1]/a')
 

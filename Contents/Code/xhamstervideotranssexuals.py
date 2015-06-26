@@ -111,9 +111,15 @@ def xhamster_videos_transsexuals_top():
 def xhamster_videos_transsexuals_categories():
   if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_videos_transsexuals_categories")
 
-  oc = ObjectContainer( title2 = L("Categories") + " - " + L("Transsexuals") )
+  oc = ObjectContainer(
+    title2 = L("Categories") + " - " + L("Transsexuals"),
+    no_cache = True
+  )
 
-  data = HTML.ElementFromURL( XHAMSTER_VIDEOS_CATEGORIES )
+  data = HTML.ElementFromURL(
+    XHAMSTER_VIDEOS_CATEGORIES,
+    cacheTime = 0
+  )
 
   xpath_string = '//div[text()="' + L("Transsexuals") + '"]/parent::div/following-sibling::div/a'
   categories = data.xpath(xpath_string)

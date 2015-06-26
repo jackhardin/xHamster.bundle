@@ -132,9 +132,15 @@ def xhamster_videos_straight_top():
 def xhamster_videos_straight_categories():
   if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_videos_straight_categories")
 
-  oc = ObjectContainer( title2 = L("Categories") + " - " + L("Straight") )
+  oc = ObjectContainer(
+    title2 = L("Categories") + " - " + L("Straight"),
+    no_cache = True
+  )
 
-  data = HTML.ElementFromURL( XHAMSTER_VIDEOS_CATEGORIES )
+  data = HTML.ElementFromURL(
+    XHAMSTER_VIDEOS_CATEGORIES,
+    cacheTime = 0
+  )
 
   xpath_string = '//div[text()="' + L("Straight") + '"]/parent::div/following-sibling::div/a'
   categories = data.xpath(xpath_string)

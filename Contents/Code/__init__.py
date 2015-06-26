@@ -39,11 +39,8 @@ def Start():
 
   HTTP.Headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0'
   HTTP.Headers['Connection'] = 'keep-alive'
-  try:
-    language = Prefs["language"].split("/")[1] + '.'
-  except:
-    language = 'en'
-  HTTP.Headers['Accept-Language'] = language
+  language = Prefs["language"].split("/")[1]
+  HTTP.Headers['Accept-Language'] = language.encode("ASCII")
 
   ObjectContainer.title1 = TITLE
   #ObjectContainer.view_group = 'List'
@@ -58,7 +55,10 @@ def Start():
 @handler(PREFIX, TITLE, art=STRAIGHT_ART, thumb=XHAMSTER_ICON)
 def xhamster_main_menu():
 
-  oc = ObjectContainer()
+  language = Prefs["language"].split("/")[1]
+  HTTP.Headers['Accept-Language'] = language.encode("ASCII")
+
+  oc = ObjectContainer( no_cache = True )
 
   oc.add(DirectoryObject(
     key = Callback(xhamster_videos),
