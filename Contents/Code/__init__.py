@@ -13,7 +13,7 @@ XHAMSTER_VIDEOS_TOP = '{0}/rankings/alltime-top-videos.html'.format(XHAMSTER_BAS
 XHAMSTER_ICON     = 'xHamster.png'
 ICON              = 'default.png'
 SEARCH_ICON       = 'search.png'
-SETTINGS_ICON     = 'icon-prefs.png'
+SETTINGS_ICON     = 'preferences.png'
 
 STRAIGHT_ICON     = 'straight.png'
 GAYS_ICON         = 'gays.png'
