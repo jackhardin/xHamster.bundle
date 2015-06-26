@@ -1,9 +1,20 @@
 [
-	{
-		"id": "filterContent",
-		"type": "enum",
-		"label": "Filter Content",
-		"values": ["Straight","Transsexual","Gay","All"],
-		"default": "Straight" 
-	}
+    {
+        "id": "language",
+        "label": "Categories Language",
+        "type": "enum",
+        "values": [
+            "English/en",
+            "Deutsch/de",
+            "Français/fr",
+            "Español/es",
+            "Italiano/it",
+            "Русский/ru",
+            "Português/pt",
+            "日本語/jp",
+            "Nederlands/nl",
+            "Polski/pl"
+        ],
+        "default": "English"
+    }
 ]
