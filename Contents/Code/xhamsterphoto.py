@@ -131,13 +131,12 @@ def xhamster_photos_album_list(title, url, page = 1):
   next_a = data.xpath('//div[@class="pager"]//a[contains(@class,"last")]')
   if len(next_a) > 0:
     if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(next_a[0]))
-    next_page = page + 1
     oc.add(NextPageObject(
       key = Callback(
         xhamster_photos_album_list,
         title = title,
         url = next_a[0].xpath('./@href')[0],
-        page = next_page,
+        page = page + 1,
       ),
       title = L('Next') + ' >>'
     ))
