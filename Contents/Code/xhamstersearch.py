@@ -4,8 +4,7 @@ XHAMSTER_SEARCH = '{0}/search.php?q={1}&qcat=video&page={2}'
 ################################################################################
 @route(PREFIX+'/search', page = int)
 def xhamster_search(query, page = 1):
-  query = String.Quote(query, usePlus=True)
-  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_search with query: " + query)
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_search QUERY: " + query + " | PAGE: " + str(page) )
 
   oc = ObjectContainer(
     title2 = unicode(L('Search Results') + ': ' + query + ' | ' + L('Page') + ' ' + str(page))
@@ -18,7 +17,9 @@ def xhamster_search(query, page = 1):
     no_cache = True
   )
 
-  url = XHAMSTER_SEARCH.format(XHAMSTER_BASE_URL, query, str(page))
+  search_query = String.Quote(query, usePlus=True)
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] SEARCHING... " + search_query)
+  url = XHAMSTER_SEARCH.format(XHAMSTER_BASE_URL, search_query, str(page))
   data = HTML.ElementFromURL( url )
   videos = data.xpath('//div[contains(@class, "video")]')
 
