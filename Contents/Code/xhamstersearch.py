@@ -4,14 +4,15 @@ XHAMSTER_SEARCH = '{0}/search.php?q={1}&qcat=video&page={2}'
 ################################################################################
 @route(PREFIX+'/search', page = int)
 def xhamster_search(query, page = 1):
+  query = String.Quote(query, usePlus=True)
   if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_search with query: " + query)
 
   oc = ObjectContainer(
-    title2 = unicode(L('Search Results') + ': ' + query  + ' | ' + L('Page') + ' ' + str(page))
+    title2 = unicode(L('Search Results') + ': ' + query + ' | ' + L('Page') + ' ' + str(page))
   )
 
   noresults = ObjectContainer(
-    title2 = unicode(L('Search Results') + ': ' + query  + ' | ' + L('Page') + ' ' + str(page)),
+    title2 = unicode(L('Search Results') + ': ' + query + ' | ' + L('Page') + ' ' + str(page)),
     header   = L('no matching videos'),
     message  = L('no matching videos'),
     no_cache = True
