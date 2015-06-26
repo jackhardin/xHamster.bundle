@@ -36,11 +36,9 @@ def xhamster_videos():
 ################################################################################
 @route(PREFIX+'/videos/list', page = int)
 def xhamster_videos_list(title, url, page = 1):
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_videos_list *** url " + url + " ***")
 
   oc = ObjectContainer( title2 = unicode( title ) + " | " + L("Page") + " " + str(page) )
-
-  #Log.Info("#### COOKIE #### " + HTTP.Headers['Cookie'])
-  #Log.Info("#### HEADERS #### " + str(HTTP.Headers))
 
   data = HTML.ElementFromURL( url )
 
@@ -48,6 +46,7 @@ def xhamster_videos_list(title, url, page = 1):
   videos = data.xpath('//div[contains(@class, "video")]')
 
   for video in videos:
+    if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(video))
     video_url = video.xpath('.//a/@href')[0]
     video_thumb = video.xpath('.//img/@src')[0]
     video_title = video.xpath('.//img/@alt')[0].strip()
@@ -60,7 +59,7 @@ def xhamster_videos_list(title, url, page = 1):
 
   next_a = data.xpath('//div[@class="pager"]//a[contains(@class,"last")]')
   if len(next_a) > 0:
-    #Log.Info(HTML.StringFromElement(next_a[0]))
+    if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(next_a[0]))
     oc.add(NextPageObject(
       key = Callback(
         xhamster_videos_list,

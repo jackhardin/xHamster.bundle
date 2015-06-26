@@ -4,6 +4,7 @@ XHAMSTER_SEARCH = '{0}/search.php?q={1}&qcat=video&page={2}'
 ################################################################################
 @route(PREFIX+'/search', page = int)
 def xhamster_search(query, page = 1):
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_search with query: " + query)
 
   oc = ObjectContainer(
     title2 = unicode(L('Search Results') + ': ' + query  + ' | ' + L('Page') + ' ' + str(page))
@@ -16,12 +17,13 @@ def xhamster_search(query, page = 1):
     no_cache = True
   )
 
-  url = XHAMSTER_SEARCH.format(XHAMSTER_BASE_URL, query, str(page)) 
+  url = XHAMSTER_SEARCH.format(XHAMSTER_BASE_URL, query, str(page))
   data = HTML.ElementFromURL( url )
   videos = data.xpath('//div[contains(@class, "video")]')
 
   if len(videos) > 0:
     for video in videos:
+      if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(video))
       video_url   = video.xpath('.//a/@href')[0]
       video_thumb = video.xpath('.//img/@src')[0]
       video_title = video.xpath('.//img/@alt')[0].strip()
@@ -35,7 +37,7 @@ def xhamster_search(query, page = 1):
 
     next_a = data.xpath('//div[@class="pager"]//a[contains(@class,"last")]')
     if len(next_a) > 0:
-      #Log.Info(HTML.StringFromElement(next_a[0]))
+      if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(next_a[0]))
       oc.add(NextPageObject(
         key = Callback(
           xhamster_search,

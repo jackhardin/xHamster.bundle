@@ -51,6 +51,7 @@ def xhamster_photos():
 ################################################################################
 @route(PREFIX+'/photos/album/categories')
 def xhamster_photos_album_categories():
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_photos_album_categories")
 
   oc = ObjectContainer( title2 = L("Photo Albums Categories") )
 
@@ -59,7 +60,7 @@ def xhamster_photos_album_categories():
   categories = data.xpath('//div[@id="menuLeft"]/div[@class="list"][1]/a')
 
   for category in categories:
-    Log.Info(HTML.StringFromElement(category))
+    if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(category))
     try:
       url = category.xpath('./@href')[0]
     except:
@@ -107,17 +108,16 @@ def xhamster_photos_top():
 ################################################################################
 @route(PREFIX+'/photos/album/list', page = int)
 def xhamster_photos_album_list(title, url, page = 1):
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_photos_album_list")
 
   oc = ObjectContainer( title2 = unicode( title ) + " | " + L("Page") + " " + str(page) )
-
-  #Log.Info("#### COOKIE #### " + HTTP.Headers['Cookie'])
-  #Log.Info("#### HEADERS #### " + str(HTTP.Headers))
 
   data = HTML.ElementFromURL( url )
 
   albums = data.xpath('//div[contains(@class, "gallery")]')
   
   for album in albums:
+    if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(album))
     album_url = album.xpath('.//a/@href')[0]
     album_thumb = album.xpath('.//img/@src')[0]
     album_title = album.xpath('.//img/@title')[0]
@@ -130,7 +130,7 @@ def xhamster_photos_album_list(title, url, page = 1):
 
   next_a = data.xpath('//div[@class="pager"]//a[contains(@class,"last")]')
   if len(next_a) > 0:
-    #Log.Info(HTML.StringFromElement(next_a[0]))
+    if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(next_a[0]))
     next_page = page + 1
     oc.add(NextPageObject(
       key = Callback(

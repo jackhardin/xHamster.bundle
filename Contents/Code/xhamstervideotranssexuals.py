@@ -51,6 +51,7 @@ def xhamster_videos_transsexuals():
 ################################################################################
 @route(PREFIX+'/videos/transsexuals/top')
 def xhamster_videos_transsexuals_top():
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_videos_transsexuals_top")
 
   oc = ObjectContainer(
     title2 = L("Top Rated") + " - " + L("Transsexuals"),
@@ -61,7 +62,7 @@ def xhamster_videos_transsexuals_top():
   headers = request.headers
   cookies = HTTP.CookiesForURL(XHAMSTER_VIDEOS_LATEST_TRANSSEXUALS)
   HTTP.Headers['Cookie'] = cookies
-  # Log.Info("#### COOKIES #### " + cookies)
+  if XHAMSTER_DEBUG: Log.Info("#### COOKIES #### " + cookies)
 
   oc.add(DirectoryObject(
     key = Callback(
@@ -108,6 +109,7 @@ def xhamster_videos_transsexuals_top():
 ################################################################################
 @route(PREFIX+'/videos/transsexuals/categories')
 def xhamster_videos_transsexuals_categories():
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_videos_transsexuals_categories")
 
   oc = ObjectContainer( title2 = L("Categories") + " - " + L("Transsexuals") )
 
@@ -117,7 +119,7 @@ def xhamster_videos_transsexuals_categories():
   categories = data.xpath(xpath_string)
 
   for category in categories:
-    #Log.Info(HTML.StringFromElement(category))
+    if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(category))
     try:
       url = category.xpath('./@href')[0]
     except:

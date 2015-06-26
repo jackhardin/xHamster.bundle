@@ -72,6 +72,7 @@ def xhamster_videos_straight():
 ################################################################################
 @route(PREFIX+'/videos/straight/top')
 def xhamster_videos_straight_top():
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_videos_straight_top")
 
   oc = ObjectContainer(
     title2 = L("Top Rated") + " - " + L("Straight"),
@@ -82,7 +83,7 @@ def xhamster_videos_straight_top():
   headers = request.headers
   cookies = HTTP.CookiesForURL(XHAMSTER_VIDEOS_LATEST_STRAIGHT)
   HTTP.Headers['Cookie'] = cookies
-  # Log.Info("#### COOKIES #### " + cookies)
+  if XHAMSTER_DEBUG: Log.Info("#### COOKIES #### " + cookies)
 
   oc.add(DirectoryObject(
     key = Callback(
@@ -129,6 +130,7 @@ def xhamster_videos_straight_top():
 ################################################################################
 @route(PREFIX+'/videos/straight/categories')
 def xhamster_videos_straight_categories():
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_videos_straight_categories")
 
   oc = ObjectContainer( title2 = L("Categories") + " - " + L("Straight") )
 
@@ -138,7 +140,7 @@ def xhamster_videos_straight_categories():
   categories = data.xpath(xpath_string)
 
   for category in categories:
-    #Log.Info(HTML.StringFromElement(category))
+    if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(category))
     try:
       url = category.xpath('./@href')[0]
     except:
@@ -158,6 +160,7 @@ def xhamster_videos_straight_categories():
 ################################################################################
 @route(PREFIX+'/videos/straight/random')
 def xhamster_random():
+  if XHAMSTER_DEBUG: Log.Info("[XHAMSTER] xhamster_random")
 
   oc = ObjectContainer(
     title2 = L("Random Video"),
@@ -165,6 +168,7 @@ def xhamster_random():
   )
 
   random_video = xhamster_get_redirect_url(XHAMSTER_VIDEOS_RANDOM)
+  if XHAMSTER_DEBUG: Log.Info("*** redirect url " + random_video + " ***")
   oc.add(URLService.MetadataObjectForURL(random_video))
 
   return oc

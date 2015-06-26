@@ -23,6 +23,8 @@ STRAIGHT_ART     = 'straightArt.jpg'
 GAYS_ART         = 'gaysArt.jpg'
 TRANSSEXUALS_ART = 'transsexualsArt.jpg'
 
+XHAMSTER_DEBUG = 0
+
 from xhamsterutil import L
 from xhamstervideo import xhamster_videos
 from xhamsterphoto import xhamster_photos
