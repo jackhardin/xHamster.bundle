@@ -121,7 +121,7 @@ def xhamster_videos_gays_categories():
     cacheTime = 0
   )
 
-  xpath_string = '//div[text()="' + L("Gays") + '"]/parent::div/following-sibling::div/a'
+  xpath_string = '//div[text()="' + L("Gays") + '"]/parent::div/following-sibling::div[1]/a'
   categories = data.xpath(xpath_string)
 
   # categories is a 5 column list. Order categories
