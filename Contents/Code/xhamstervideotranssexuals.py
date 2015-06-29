@@ -124,7 +124,12 @@ def xhamster_videos_transsexuals_categories():
   xpath_string = '//div[text()="' + L("Transsexuals") + '"]/parent::div/following-sibling::div/a'
   categories = data.xpath(xpath_string)
 
-  for category in categories:
+  # categories is a 5 column list. Order categories
+  ordered_categories = []
+  for i in list(range(0,5)):
+    ordered_categories += categories[i::5]
+
+  for category in ordered_categories:
     if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(category))
     try:
       url = category.xpath('./@href')[0]
