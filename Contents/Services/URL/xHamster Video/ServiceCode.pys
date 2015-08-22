@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+RE_SETTINGS = Regex('var\ssettings\s=\s({.+?});', Regex.DOTALL)
+
 ####################################################################################################
 def NormalizeURL(url):
   return url
@@ -8,45 +10,38 @@ def NormalizeURL(url):
 def MetadataObjectForURL(url):
 
   try:
-    content = HTML.ElementFromURL( url )
+    req      = HTTP.Request(url)
+    content  = req.content
+    json     = RE_SETTINGS.search(content).group(1)
+    settings = JSON.ObjectFromString(json)
   except:
     raise Ex.MediaNotAvailable
 
-  video = content.xpath('//video/@file')[0]
+  video = settings['video']['file']
   #Log.Info("[xHamster URLService PlayVideo] VIDEO = " + video)
 
   if len(video) < 1:
     raise Ex.MediaNotAvailable
 
-  date = content.xpath('//td[@id="videoUser"]//span[@class="hint"]/@hint')[0]
-  date = Datetime.ParseDate(date).date()
-  #Log.Info("[xHamster URLService MetadataObjectForURL] DATE = " + date)
-
-  duration = content.xpath('//td[@id="videoUser"]/div[@class="item"][2]/text()')[0]
-  duration = Datetime.MillisecondsFromString(duration)
+  duration = int(settings['vars']['new']['duration']) * 1000
   #Log.Info("[xHamster URLService MetadataObjectForURL] DURATION = " + duration)
 
-  title = content.xpath('//h1/text()')[0]
+  title = settings['vars']['new']['title']
   #Log.Info("[xHamster URLService MetadataObjectForURL] TITLE = " + title)
 
-  try:
-    summary = content.xpath('//td[@class="desc"]/h2/text()')[0]
-  except:
-    summary = ""
-  #Log.Info("[xHamster URLService MetadataObjectForURL] SUMMARY = " + summary)
+  thumb = settings['video']['thumb']
+  #Log.Info("[xHamster URLService MetadataObjectForURL] THUMB = " + thumb)
 
-  thumb = content.xpath('//video/@poster')[0]
+  art = settings['vars']['new']['thumbUrl']
   #Log.Info("[xHamster URLService MetadataObjectForURL] THUMB = " + thumb)
 
   return VideoClipObject(
     title = title,
-    summary = summary,
-    originally_available_at = date,
     duration = duration,
 		genres = ['XXX','Adult','18+'],
 		content_rating = 'X',
     thumb = Resource.ContentsOfURLWithFallback(thumb),
-    art = Resource.ContentsOfURLWithFallback(thumb)
+    art = Resource.ContentsOfURLWithFallback(art)
   )
 
 ####################################################################################################
@@ -72,11 +67,14 @@ def MediaObjectsForURL(url):
 @indirect
 def PlayVideo(url):
   try:
-    content = HTML.ElementFromURL( url )
+    req      = HTTP.Request(url)
+    content  = req.content
+    json     = RE_SETTINGS.search(content).group(1)
+    settings = JSON.ObjectFromString(json)
   except:
     raise Ex.MediaNotAvailable
 
-  video = content.xpath('//video/@file')[0]
+  video = settings['video']['file']
   #Log.Info("[xHamster URLService PlayVideo] VIDEO = " + video)
 
   if len(video) < 1:
