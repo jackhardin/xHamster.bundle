@@ -38,8 +38,8 @@ def MetadataObjectForURL(url):
   return VideoClipObject(
     title = title,
     duration = duration,
-		genres = ['XXX','Adult','18+'],
-		content_rating = 'X',
+    genres = ['XXX','Adult','18+'],
+    content_rating = 'X',
     thumb = Resource.ContentsOfURLWithFallback(thumb),
     art = Resource.ContentsOfURLWithFallback(art)
   )
@@ -56,7 +56,7 @@ def MediaObjectsForURL(url):
       ],
       container = Container.MP4,
       video_codec = VideoCodec.H264,
-			video_resolution = 'sd',
+      video_resolution = 'sd',
       audio_codec = AudioCodec.AAC,
       audio_channels = 2,
       optimized_for_streaming = True if Client.Product not in ['Plex Web'] else False
