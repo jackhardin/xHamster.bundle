@@ -23,7 +23,7 @@ def MetadataObjectForURL(url):
   if len(video) < 1:
     raise Ex.MediaNotAvailable
 
-  duration = int(settings['vars']['new']['duration']) * 1000
+  duration = int(float(settings['vars']['new']['duration']) * 1000)
   #Log.Info("[xHamster URLService MetadataObjectForURL] DURATION = " + duration)
 
   title = settings['vars']['new']['title']
