@@ -121,15 +121,10 @@ def xhamster_videos_gays_categories():
     cacheTime = 0
   )
 
-  xpath_string = '//div[text()="' + L("Gays") + '"]/parent::div/following-sibling::div[1]/a'
+  xpath_string = '//div[text()="' + L("Gays") + '"]/parent::div/following-sibling::div/a'
   categories = data.xpath(xpath_string)
 
-  # categories is a 5 column list. Order categories
-  ordered_categories = []
-  for i in list(range(0,5)):
-    ordered_categories += categories[i::5]
-
-  for category in ordered_categories:
+  for category in categories:
     if XHAMSTER_DEBUG: Log.Info(HTML.StringFromElement(category))
     try:
       url = category.xpath('./@href')[0]
